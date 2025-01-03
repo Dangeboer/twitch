@@ -1,0 +1,18 @@
+version: '3.8' # 文件的语法结构的版本
+
+services:
+  db:
+    image: mysql:latest # specify image（镜像），下载的一个分装环境，最新版本
+    environment: # 定义环境变量
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_DATABASE: twitch
+      MYSQL_ROOT_PASSWORD: secret
+      TZ: UTC # timezone, utc 是一个标准的 tz, 统一时区
+    volumes:
+      - mysql-local:/var/lib/mysql # 数据库存东西的地方
+    ports:
+      - 3306:3306 # 数据库使用的端口（和那个8080意义一样），左边自己电脑的，右边docker的虚拟端口，端口映射
+
+# permanent storage of data.
+volumes:
+  mysql-local: # 向电脑申请划出一块空间用来存储，即使这里没有写
